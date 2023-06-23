@@ -12,6 +12,14 @@ public:
   {
     return (r*r + i*i);
   };
+  void set_r(double R)
+  {
+    r = R;
+  };
+  void set_i(double I)
+  {
+    i = I;
+  }
 };
 bool E(complex a, complex b)
 {
@@ -29,17 +37,25 @@ complex coordinate_change(int n, int d)
   //function that associates a coodinate system to an int
   complex c(0,0);
    //type conversions are ugly, but int division is efficient
-   int _i = c.i;
-   int _r = c.r;
-   _i = n / d;
-   _r = n % d;
-
+   int _i = n/d;
+   int _r = n%d;
    double i_ = _i;
    double r_ = _r;
-   c.i = (i_/d)*2.26 - 1.13;
-   c.r = (r_/d)*2.48 - 2;
+   c.set_r((r_/(d-1))*2.48-2);
+   c.set_i((i_/(d-1))*2.26 - 1.13 );
    return c;
 };
+/*
+test to show the board with proper coordinates
+  for (int i = 0; i<100; ++i)
+    {
+      std::cout<< coordinate_change(i, 10).i<< ' '<< coordinate_change(i,10).r;
+      if (i%10 == 0)
+	{
+	  std::cout<< '\n';
+	}
+    };
+*/
 
 complex next_s(complex z0, complex c) 
     // this function calculates the number of iterations for each pixel
@@ -47,8 +63,8 @@ complex next_s(complex z0, complex c)
     //maybe implement mod in struct
     //use the recursive formula:
     complex z(0,0);
-    z.i = 2*z0.i*z0.r + c.i;
-    z.r = z.r*z.r - z.i*z.i + c.r;
+    z.set_i(2*z0.i*z0.r + c.i);
+    z.set_r(z.r*z.r - z.i*z.i + c.r);
     return z;
   };
 
@@ -57,7 +73,7 @@ int num_iter(complex z, complex c, int max_iter)
     int iter = 0;
     while (iter<max_iter && z.mod_2()<4)
       {
-	z = next_s(z, c);
+	z = next_s(c, z);
 	++iter;
       }
     return iter;
@@ -93,7 +109,7 @@ public:
     complex z(0,0);
     for (int i=0; i<m_dim*m_dim; ++i)
       {
-	std::cout<< 256 - num_iter(z ,coordinate_change(i, m_dim), 256) << ' ';
+	std::cout<< 256 - num_iter(coordinate_change(i, m_dim), z, 256) << ' ';
 	if (i%(m_dim-1) == 0)
 	  {
 	    std::cout<<'\n';

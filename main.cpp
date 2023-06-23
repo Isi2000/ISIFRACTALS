@@ -2,8 +2,11 @@
 #include"board.h"
 int main()
 {
-  BOARD a(30);
+  BOARD a(500);
 
   a.board_iter();
+
   return 0;
+
+  
 };
