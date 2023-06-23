@@ -1,6 +1,6 @@
 #include<vector>
 #include<iostream>
-
+#include<string>
 
 class complex
 {
@@ -20,6 +20,10 @@ public:
   {
     i = I;
   }
+  void print()
+  {
+    std::cout<< r << ' ' << i << 'i';
+  };
 };
 bool E(complex a, complex b)
 {
@@ -62,9 +66,7 @@ complex next_s(complex z0, complex c)
   {
     //maybe implement mod in struct
     //use the recursive formula:
-    complex z(0,0);
-    z.set_i(2*z0.i*z0.r + c.i);
-    z.set_r(z.r*z.r - z.i*z.i + c.r);
+    complex z((z0.r*z0.r-z0.i*z0.i) + c.r, (2*z0.r*z0.i) + c.i);
     return z;
   };
 
