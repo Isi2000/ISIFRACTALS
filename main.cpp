@@ -2,6 +2,8 @@
 #include"board.h"
 int main()
 {
-  complex a(10,10);
-  std::cout<< a.mod_2();
-}
+  BOARD a(30);
+
+  a.board_iter();
+  return 0;
+};
