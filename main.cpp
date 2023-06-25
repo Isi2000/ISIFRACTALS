@@ -1,12 +1,15 @@
 #include<iostream>
-#include"board.h"
+#include"P_2_CPP.h"
+
+
+using namespace std;
 int main()
 {
-  BOARD a(500);
+    BOARD a(10000);
+    a.coloring_board();
+    a.save_to_file();
+    return 0;
 
-  a.board_iter();
-
-  return 0;
 
   
 };
