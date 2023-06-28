@@ -6,4 +6,5 @@ g++ main.cpp
 
 python plotter.py
 
+rm ./output_scaling*.txt
 
