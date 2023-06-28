@@ -4,7 +4,6 @@ g++ main.cpp
 
 ./a.out
 
-python prova.py
-
+python plotter.py
 
 
