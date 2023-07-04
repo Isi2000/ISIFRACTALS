@@ -4,9 +4,9 @@
 
 
 int main() {
-    int dim = 500;
+    int dim = 300;
 
-    for (double scaling_factor = 2.0; scaling_factor >= 0.2; scaling_factor -= 0.2) {
+    for (double scaling_factor = 0.01; scaling_factor <= 1; scaling_factor += 0.05) {
         BOARD board(dim);
         board.coloring_board(scaling_factor);
         board.save_to_file(scaling_factor);
