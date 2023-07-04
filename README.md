@@ -5,6 +5,7 @@
 This project aims at creating a tool to visualize the madelbrot set and julia fractals.
 
 The code is split in two parts:
+
 *__Python__: takes care of plotting of the data and creating gifs and other cool ways to visualize fractals
 
 *__C++__: takes care of all the hard computation so everything goes really fast
