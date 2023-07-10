@@ -28,7 +28,7 @@ class BOARD {
 public:
   BOARD(int dim) : dim(dim), board(dim * dim, 1.0) {}
 
-  void coloring_board(double scaling_factor, bool mode = true) {
+  void coloring_board(double scaling_factor,std::complex<double> c = 0.0, bool mode = true) {
     /*
       takes each pixel and colors it accordin to the algorithm for generating
       algorithm of the mandelbrot of julia set true --> mandelbrot set false -->
@@ -54,7 +54,6 @@ public:
     }
 
     if (mode == false) {
-      const std::complex c(0.3, 0.4);
       const double z_real_bound = 4 * scaling_factor / (this->dim - 1);
       const double z_im_bound = 4 * scaling_factor / (this->dim - 1);
 
@@ -71,13 +70,36 @@ public:
     }
   }
 
-  void save_to_file(double scaling_factor) {
+  void save_to_file_m(double scaling_factor) {
     // saves to a given path
     std::string path = "/home/isacco/ISIFRACTALS/WT_CODE/PLOT/";
     std::string filename =
         path + "output_scaling_" + std::to_string(scaling_factor) + ".ppm";
     std::ofstream outfile(filename);
     // format for ppm file
+    outfile << "P3\n";
+    outfile << dim << " " << dim << "\n";
+    outfile << "255\n";
+
+    for (int i = 0; i < this->dim; i++) {
+      for (int j = 0; j < this->dim; j++) {
+        int pixel_value =
+            static_cast<int>(this->board[i * this->dim + j] * 255);
+        outfile << pixel_value << " " << pixel_value << " " << pixel_value
+                << " ";
+      }
+      outfile << "\n";
+    }
+
+    outfile.close();
+  }
+
+  
+  void save_to_file_j(std::complex<double> c) {
+    std::string path = "/home/isacco/ISIFRACTALS/WT_CODE/PLOT/";
+    std::string filename =
+        path + "output_c_" + std::to_string(c.real()) + "_" + std::to_string(c.imag()) + ".ppm";
+    std::ofstream outfile(filename);
     outfile << "P3\n";
     outfile << dim << " " << dim << "\n";
     outfile << "255\n";
